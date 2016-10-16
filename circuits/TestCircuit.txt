@@ -1,0 +1,9 @@
+input Int8 a, b
+
+output Int8 z
+
+wire Int8 d
+
+
+d = a + b
+z = d
