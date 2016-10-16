@@ -1,0 +1,11 @@
+module test(d, z, b, a);
+
+wire [7:0] d;
+output [7:0] z;
+input [7:0] b;
+input [7:0] a;
+
+ADD #(8) ADD_1(a,b,d)
+REG #(8) REG_2(d,z,Clk,Rst)
+
+endmodule
