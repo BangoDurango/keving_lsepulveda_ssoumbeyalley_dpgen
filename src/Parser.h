@@ -15,6 +15,7 @@ File: Parser.h
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include "main.h"
 //#include "V_Module.h"
 
 using namespace std;
