@@ -130,7 +130,7 @@ V_Component::V_Component(V_Pin* In1, V_Pin* In2, V_Pin* Control, V_Pin* Output, 
 
 	//verilogString = "MUX #(" + to_string(maxBitLength) + ") MUX_" + to_string(componentNumber) + "(" + extraZeros1 + in1->getName() + extraZeros1end + "," + extraZeros2 + in2->getName() + extraZeros2end + "," + control->getName() + "," + output->getName() + ")";
 	
-	std::cout << verilogString << std::endl;
+	//std::cout << verilogString << std::endl;
 
 }
 

@@ -7,14 +7,20 @@
 //	pins.push_back(nPin);
 //
 //}
+
 V_Module::~V_Module() {
 	for (std::vector<V_Pin*>::iterator it = pins.begin(); it != pins.end(); ++it) {
 		delete *it;
-		it = pins.erase(it);
+		//it = pins.erase(it);
 	}
-
+	//std::vector<V_Component*> comps;
+	for (std::vector<V_Component*>::iterator it = comps.begin(); it != comps.end(); ++it) {
+		delete *it;
+		//it = comps.erase(it);
+	}
 	//Then need to loop again for components
 }
+
 void V_Module::printLines(void) {
 	for (vector<string>::iterator it = rawFileStrings.begin(); it != rawFileStrings.end(); ++it) {
 		std::cout << *it << std::endl;
@@ -28,7 +34,7 @@ std::vector<string>* V_Module::getFileStringVector() {
 
 void V_Module::generatePins() {
 
-
+	//bool erFlag = false;
 	std::vector<string> tok;
 	std::vector<string> sNames;
 	std::string sType;
@@ -37,14 +43,16 @@ void V_Module::generatePins() {
 	V_Pin* newPin;
 
 	if (rawFileStrings.size() == 0){
-		std::cout << "filestrings vector empty" << std::endl;
-		return;
+		std::cout << "Error parsing file (V_Module.cpp)" << std::endl;
+		exit(1);
+		//erFlag = true;
+		//return false;
 	}
 
 	for(std::vector<string>::iterator it = rawFileStrings.begin(); it != rawFileStrings.end(); ++it){
 		//For each string in the vector which the file was loaded in to
 		tok = Parser::splitByWhitespace(*it);//break the line up by whitespace
-
+		if (tok.size() == 0) continue;
 		sType = tok.at(0);//the first token should be input, output, wire etc
 		if (!V_Pin::CheckType(tok.at(0))) {
 			//if it's not, then it's a component (probably), so we're done generating pins...
@@ -59,8 +67,8 @@ void V_Module::generatePins() {
 		for (std::vector<string>::iterator it = sNames.begin(); it != sNames.end(); ++it) {
 			//loop through the vector of pin names, and make a new V_Pin object for it
 			newPin = new V_Pin(*it, sType, sBitWidthString);
-			if (newPin->getType() == "invalid") {//For safety
-				delete newPin;
+			if (newPin->getType() == INVALID) {//For safety
+				delete newPin;	
 				return;
 			}
 			
@@ -267,11 +275,12 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 	//std::cout << outFileStr << std::endl;
 
 	if (outFile.is_open() && outFile.good()) {
-		//	std::cout << "File Opened!" << std::endl;
+			//std::cout << "File Opened!" << std::endl;
 	}
 	else {
-		std::cout << "File(s) not opened." << std::endl;
+		std::cout << "Unable to open output file." << std::endl;
 		//return std::vector<std::string>();
+		exit(1);
 	}
 	//outFile.close();
 	int bw = -1;

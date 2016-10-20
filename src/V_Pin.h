@@ -8,11 +8,7 @@ File: V_Pin.h
 #ifndef V_PIN_H
 #define V_PIN_H
 
-#define INPUT "input"
-#define OUTPUT "output"
-#define WIRE "wire"
-#define REGISTER "register"
-#define INVALID "invalid"
+
 
 //if (sType == "input") flag = true;
 //else if (sType == "output") flag = true;
@@ -25,6 +21,7 @@ File: V_Pin.h
 #include<iostream>
 #include <sstream>
 #include "Parser.h"
+#include "main.h"
 
 using namespace std;
 

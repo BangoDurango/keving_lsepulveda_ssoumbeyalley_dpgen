@@ -8,6 +8,7 @@
 #include<iostream>
 #include <sstream>
 #include "V_Pin.h"
+#include "main.h"
 
 using namespace std;
 
