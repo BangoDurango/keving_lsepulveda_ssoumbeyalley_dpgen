@@ -151,6 +151,8 @@ std::string V_Component::buildVerilogString(){
 	pins.push_back(in2);
 	pins.push_back(output);
 
+	string debugs;
+
 	if ((in1->getBitWidth() == in2->getBitWidth()) && (in2->getBitWidth() == output->getBitWidth())){
 		maxBitLength = in1->getBitWidth();
 		equalBits = true;
@@ -170,7 +172,7 @@ std::string V_Component::buildVerilogString(){
 			bitDiff = maxBitLength - in1->getBitWidth();
 			ss1 << "{" << bitDiff << "'b";
 			extraZeros1 = ss1.str();
-
+			ss1.str("");
 			//extraZeros1 = "{" + to_string(bitDiff) + "'b";
 			for (int i = 0; i < bitDiff; i++){
 				extraZeros1.append("0");
@@ -182,7 +184,7 @@ std::string V_Component::buildVerilogString(){
 			bitDiff = maxBitLength - in2->getBitWidth();
 			ss1 << "{" << bitDiff << "'b";
 			extraZeros2 = ss1.str();
-
+			ss1.str("");
 			//extraZeros2 = "{" + to_string(bitDiff) + "'b";
 			for (int i = 0; i < bitDiff; i++){
 				extraZeros2.append("0");
@@ -190,7 +192,7 @@ std::string V_Component::buildVerilogString(){
 			extraZeros2.append(",");
 			extraZeros2end = "}";
 		}
-
+		ss1.str("");
 	}
 
 	if (operation == "+"){
@@ -224,14 +226,16 @@ std::string V_Component::buildVerilogString(){
 		cout << "Error Invalid Operator";
 	}
 
+
 	if (component == "COMP"){
 		switch (compOper){
 		case 1: 
+			debugs = ss1.str();
 			ss1 << component << " #(" << maxBitLength << ") " << component << "_" << componentNumber 
 				<< "(" << extraZeros1 << in1->getName() << extraZeros1end << "," + extraZeros2 
 				<< in2->getName() << extraZeros2end << "," << output->getName() << ",,)";
 			tempString = ss1.str();
-			//tempString = component + " #(" + to_string(maxBitLength) + ") " + component + "_" + to_string(componentNumber) + "(" + extraZeros1 + in1->getName() + extraZeros1end + "," + extraZeros2 + in2->getName() + extraZeros2end + "," + output->getName() + ",,)";
+		//	tempString = component + " #(" + to_string(maxBitLength) + ") " + component + "_" + to_string(componentNumber) + "(" + extraZeros1 + in1->getName() + extraZeros1end + "," + extraZeros2 + in2->getName() + extraZeros2end + "," + output->getName() + ",,)";
 			break;
 		case 2: 
 			ss1 << component << " #(" << maxBitLength << ") " 
@@ -254,7 +258,7 @@ std::string V_Component::buildVerilogString(){
 			break;
 
 		}
-
+		ss1.str("");
 	}
 	else{
 		ss1 << component << " #(" << maxBitLength << ") " 
@@ -263,12 +267,13 @@ std::string V_Component::buildVerilogString(){
 			<< extraZeros2 << in2->getName() << extraZeros2end << "," 
 			<< output->getName() << ")";
 		tempString = ss1.str();
-
+		ss1.str("");
 		//tempString = component + " #(" + to_string(maxBitLength) + ") " + component + "_" + to_string(componentNumber) + "(" + extraZeros1 + in1->getName() + extraZeros1end + "," + extraZeros2 + in2->getName() + extraZeros2end + "," + output->getName() + ")";
 	}
 	
 	//testing
 	//cout << tempString << endl;
+	//ss1.str("");
 	return tempString;
 }
 

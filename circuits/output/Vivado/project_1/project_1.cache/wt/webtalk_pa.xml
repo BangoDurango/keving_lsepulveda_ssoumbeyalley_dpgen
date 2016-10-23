@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<document>
+<!--The data in this file is primarily intended for consumption by Xilinx tools.
+The structure and the elements are likely to change over the next few releases.
+This means code written to parse this file will need to be revisited each subsequent release.-->
+<application name="pa" timeStamp="Sun Oct 23 13:56:01 2016">
+<section name="Project Information" visible="false">
+<property name="ProjectID" value="3505073c99fd47489c6bcfdeed95ec4b" type="ProjectID"/>
+<property name="ProjectIteration" value="1" type="ProjectIteration"/>
+</section>
+<section name="PlanAhead Usage" visible="true">
+<item name="Project Data">
+<property name="SrcSetCount" value="1" type="SrcSetCount"/>
+<property name="ConstraintSetCount" value="1" type="ConstraintSetCount"/>
+<property name="DesignMode" value="RTL" type="DesignMode"/>
+<property name="SynthesisStrategy" value="Vivado Synthesis Defaults" type="SynthesisStrategy"/>
+<property name="ImplStrategy" value="Vivado Implementation Defaults" type="ImplStrategy"/>
+</item>
+<item name="Java Command Handlers">
+<property name="AddSources" value="1" type="JavaHandler"/>
+<property name="EditDelete" value="1" type="JavaHandler"/>
+<property name="NewProject" value="1" type="JavaHandler"/>
+</item>
+<item name="Gui Resources Info">
+<property name="CANCEL, Cancel" value="1" type="GuiResourceData"/>
+<property name="COMP.v, 324, 302" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 124, 201" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 132, 208" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 136, 181" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 157, 122" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 176, 338" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 177, 76" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 178, 557" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 185, 236" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 185, 242" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 192, 508" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 206, 274" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 221, 340" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 226, 409" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 243, 271" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 249, 63" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 250, 199" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 270, 456" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 271, 382" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 272, 135" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 276, 244" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 285, 93" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 307, 408" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 318, 451" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 329, 218" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 336, 25" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 347, 433" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 364, 203" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 380, 230" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 43, 45" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 433, 305" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 439, 398" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 442, 227" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 449, 246" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 464, 524" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 483, 300" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 527, 312" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 54, 283" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 553, 368" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 590, 168" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 625, 130" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 626, 276" value="1" type="GuiResourceData"/>
+<property name="Circuit1.v, 99, 130" value="1" type="GuiResourceData"/>
+<property name="NEXT, Next " value="1" type="GuiResourceData"/>
+<property name="PAResourceAtoD.AbstractFileView_RELOAD, Reload" value="5" type="GuiResourceData"/>
+<property name="PAResourceAtoD.CmdMsgDialog_OK, OK" value="1" type="GuiResourceData"/>
+<property name="PAResourceCommand.PACommandNames_ADD_SOURCES, Add Sources..." value="1" type="GuiResourceData"/>
+<property name="PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, Hierarchy Update" value="6" type="GuiResourceData"/>
+<property name="PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, [root, Design Sources, COMP (COMP.v" value="2" type="GuiResourceData"/>
+<property name="PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, [root, Design Sources, Circuit1 (Circuit1.v" value="8" type="GuiResourceData"/>
+<property name="PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, [root, Design Sources, MUX2x1 (MUX2x1.v" value="5" type="GuiResourceData"/>
+<property name="PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, [root, Design Sources, Syntax Error Files, Circuit1.v], 2, false" value="2" type="GuiResourceData"/>
+<property name="PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, [root, Design Sources, Syntax Error Files, Circuit1.v], 2, false, false, false, false, false, true" value="2" type="GuiResourceData"/>
+<property name="PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, [root, Design Sources, Syntax Error Files], 1" value="1" type="GuiResourceData"/>
+<property name="PAResourceOtoP.OpenFileAction_OPEN_DIRECTORY, Open Directory" value="1" type="GuiResourceData"/>
+<property name="PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT, Add Files..." value="1" type="GuiResourceData"/>
+<property name="PAResourceQtoS.SrcChooserPanel_ADD_OR_CREATE_SOURCE_FILE, Add" value="1" type="GuiResourceData"/>
+<property name="PAResourceQtoS.SrcMenu_IP_HIERARCHY, IP Hierarchy" value="7" type="GuiResourceData"/>
+<property name="RDIResource.BaseDialog_OK, OK" value="1" type="GuiResourceData"/>
+<property name="RDIResourceCommand.RDICommands_DELETE, Remove File from Project..." value="1" type="GuiResourceData"/>
+</item>
+<item name="Other">
+<property name="GuiMode" value="11" type="GuiMode"/>
+<property name="BatchMode" value="0" type="BatchMode"/>
+<property name="TclMode" value="6" type="TclMode"/>
+</item>
+</section>
+</application>
+</document>
