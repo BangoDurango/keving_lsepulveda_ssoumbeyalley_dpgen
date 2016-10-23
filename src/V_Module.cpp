@@ -295,6 +295,8 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 		
 	}
 	argStr = ss.str();
+	outFile << "`timescale 1ns / 1ps" << std::endl;
+
 	outFile << "module " << moduleName << "(" << argStr << ");" << std::endl << std::endl;
 
 	for (std::vector< V_Pin*>::iterator it = pins.begin(); it != pins.end(); ++it) {
@@ -312,7 +314,7 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 	outFile << std::endl;
 
 	for (std::vector<V_Component*>::iterator it = comps.begin(); it != comps.end(); ++it) {
-		outFile << (*it)->verilogString << std::endl;
+		outFile << (*it)->verilogString << ";" << std::endl;
 	}
 	//for (std::vector<string>::iterator it = pinLines.begin(); it != pinLines.end(); ++it) {
 	//	std::cout << *it;
