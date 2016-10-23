@@ -8,7 +8,7 @@ V_Pin::V_Pin(std::string sName, std::string sType, std::string sBitWidthString) 
 	if (sType == INPUT) type = INPUT;
 	else if (sType == OUTPUT) type = OUTPUT;
 	else if (sType == WIRE) type = WIRE;
-	else if (sType == REGISTER) type = "reg";
+	else if (sType == REGISTER) type = REG;
 	else { type = INVALID;
 	std::cout << "invalid pin type" << std::endl;
 	}

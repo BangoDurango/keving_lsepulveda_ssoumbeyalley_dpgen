@@ -60,9 +60,11 @@ void V_Module::generatePins() {
 			return;
 		}
 		sBitWidthString = tok.at(1); //The second item is always the bitwidth string
-
+		
 		for (std::vector<string>::iterator it = tok.begin() + 2; it != tok.end(); ++it) {
+		//	std::cout << *it;
 			sNames.push_back(*it);//Everything after the bitwidth string is a new pin, so we're making a vector of pin names
+			//sNames.insert(sNames.begin(), *it);
 		}
 		for (std::vector<string>::iterator it = sNames.begin(); it != sNames.end(); ++it) {
 			//loop through the vector of pin names, and make a new V_Pin object for it
@@ -75,7 +77,7 @@ void V_Module::generatePins() {
 			else {
 			//	newPin->printPin();//printPin(); for debugging
 				if(pins.size() == 0) pins.push_back(newPin);//If the vector is empty, just put this in there.
-				else pins.insert(pins.begin(), newPin);//They should load in order on their own
+				else pins.push_back(newPin);// pins.insert(pins.begin(), newPin);//They should load in order on their own
 			}
 			
 		}
@@ -288,13 +290,20 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 	std::string nm = "";
 	std::string argStr;
 
+	//string debugs;
+
 	for (std::vector< V_Pin*>::iterator it = pins.begin(); it != pins.end(); ++it) {
+		tp = (*it)->getType();
 		nm = (*it)->getName();
-		ss << nm;
-		if (it + 1 != pins.end())ss << ", ";
-		
+
+		if (tp != WIRE && tp != REG) {
+			ss << nm << ", ";
+			//if (it + 1 != pins.end())ss << ", ";
+		}
 	}
+	ss << "Clk, Rst";
 	argStr = ss.str();
+	//argStr = argStr.substr(0, argStr.length() - 2); //get rid of extra comma
 	outFile << "`timescale 1ns / 1ps" << std::endl;
 
 	outFile << "module " << moduleName << "(" << argStr << ");" << std::endl << std::endl;
@@ -310,7 +319,7 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 		outFile << tp << " [" << bw - 1 << ":0] " << nm << ";" << std::endl;
 
 	}
-
+	outFile << "input Clk, Rst;" << std::endl;
 	outFile << std::endl;
 
 	for (std::vector<V_Component*>::iterator it = comps.begin(); it != comps.end(); ++it) {

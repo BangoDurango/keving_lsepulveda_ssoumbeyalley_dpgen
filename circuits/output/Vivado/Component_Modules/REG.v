@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-  module REG #(parameter DATAWIDTH = 2)(d, Clk, Rst, q);
+  module REG #(parameter DATAWIDTH = 2)(d, q, Clk, Rst);
         input [DATAWIDTH-1:0] d;
         output reg [DATAWIDTH-1:0] q;
         input Clk, Rst;

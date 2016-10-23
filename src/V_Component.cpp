@@ -35,28 +35,40 @@ V_Component::V_Component(V_Pin* In1, V_Pin* Output, int ComponentNumber){
 			maxBitLength = output->getBitWidth();
 		}
 	}
-
+	int bitDiff = 0;
 	if (equalBits == false){
-		int bitDiff = 0;
+		
 		if (in1->getBitWidth() != maxBitLength){
 			bitDiff = maxBitLength - in1->getBitWidth();
 			//extraZeros1 = "{" + to_string(bitDiff) + "'b";
-			ss1 << "{" << bitDiff << "'b";
-			extraZeros1 = ss1.str();
+			
+			ss1 << "{" << bitDiff << "'b0";
+			 extraZeros1 =  ss1.str();
 
 			//extraZeros1 = "{" + bitDiff + "'b";
-			for (int i = 0; i < bitDiff; i++){
+			/*for (int i = 0; i < bitDiff; i++){
 				extraZeros1.append("0");
-			}
+			}*/
 			extraZeros1.append(",");
 			extraZeros1end = "}";
 		}
 	}
-	ss2 << "REG #(" << maxBitLength << ") REG_" << componentNumber
-		<< "(" << extraZeros1 << in1->getName() << extraZeros1end << "," 
-		<< output->getName() << ",Clk,Rst)";
-	verilogString = ss2.str();
+	if (bitDiff >= 0) {
+		ss2 << "REG #(" << maxBitLength << ") REG_" << componentNumber
+			<< "(" << extraZeros1 << in1->getName() << extraZeros1end << ","
+			<< output->getName() << ",Clk,Rst)";
+		verilogString = ss2.str();
+	}
+	else {
+		int bitSub = 0;
 
+		
+		bitSub = in1->getBitWidth() + bitDiff;
+		ss2 << "REG #(" << maxBitLength << ") REG_" << componentNumber
+			<< "(" << in1->getName() << "[" << in1->getBitWidth()-1 << ":" << bitSub << "],"
+			<< output->getName() << ",Clk,Rst)";
+		verilogString = ss2.str();
+	}
 	//verilogString = "REG #(" + to_string(maxBitLength) + ") REG_" + to_string(componentNumber) + "(" + extraZeros1 + in1->getName() + extraZeros1end + "," + output->getName() + ",Clk,Rst)";
 //	std::cout << verilogString << std::endl;
 }
@@ -99,30 +111,30 @@ V_Component::V_Component(V_Pin* In1, V_Pin* In2, V_Pin* Control, V_Pin* Output, 
 		int bitDiff = 0;
 		if (in1->getBitWidth() != maxBitLength){
 			bitDiff = maxBitLength - in1->getBitWidth();
-			ss1 << "{" << bitDiff << "'b";
+			ss1 << "{" << bitDiff << "'b0,";
 			//extraZeros1 = "{" + to_string(bitDiff) + "'b";
 			extraZeros1 = ss1.str();
-			for (int i = 0; i < bitDiff; i++){
-				extraZeros1.append("0");
-			}
+			//for (int i = 0; i < bitDiff; i++){
+			//	extraZeros1.append("0");
+			//}
 			extraZeros1.append(",");
 			extraZeros1end = "}";
 		}
 		if (in2->getBitWidth() != maxBitLength){
 			bitDiff = maxBitLength - in2->getBitWidth();
 			//extraZeros2 = "{" + to_string(bitDiff) + "'b";
-			ss1 << "{" << bitDiff << "'b";
+			ss1 << "{" << bitDiff << "'b0,";
 			extraZeros2 = ss1.str();
 
-			for (int i = 0; i < bitDiff; i++){
+			//for (int i = 0; i < bitDiff; i++){
 				extraZeros2.append("0");
-			}
+			//}6666666666
 			extraZeros2.append(",");
 			extraZeros2end = "}";
 		}
 
 	}
-	ss1 << "MUX #(" << maxBitLength << ") MUX_" << componentNumber 
+	ss1 << "MUX2x1 #(" << maxBitLength << ") MUX2x1_" << componentNumber 
 		<< "(" << extraZeros1 << in1->getName() << extraZeros1end << "," << extraZeros2
 		<< in2->getName() << extraZeros2end << "," << control->getName() << "," << output->getName() << ")";
 
@@ -151,7 +163,7 @@ std::string V_Component::buildVerilogString(){
 	pins.push_back(in2);
 	pins.push_back(output);
 
-	string debugs;
+
 
 	if ((in1->getBitWidth() == in2->getBitWidth()) && (in2->getBitWidth() == output->getBitWidth())){
 		maxBitLength = in1->getBitWidth();
@@ -170,25 +182,26 @@ std::string V_Component::buildVerilogString(){
 		int bitDiff = 0;
 		if (in1->getBitWidth() != maxBitLength){
 			bitDiff = maxBitLength - in1->getBitWidth();
-			ss1 << "{" << bitDiff << "'b";
+			ss1 << "{" << bitDiff << "'b0";
 			extraZeros1 = ss1.str();
 			ss1.str("");
 			//extraZeros1 = "{" + to_string(bitDiff) + "'b";
-			for (int i = 0; i < bitDiff; i++){
+			/*for (int i = 0; i < bitDiff; i++){
 				extraZeros1.append("0");
-			}
+			}*/
+
 			extraZeros1.append(",");
 			extraZeros1end = "}";
 		}
 		if (in2->getBitWidth() != maxBitLength){
 			bitDiff = maxBitLength - in2->getBitWidth();
-			ss1 << "{" << bitDiff << "'b";
+			ss1 << "{" << bitDiff << "'b0";
 			extraZeros2 = ss1.str();
 			ss1.str("");
 			//extraZeros2 = "{" + to_string(bitDiff) + "'b";
-			for (int i = 0; i < bitDiff; i++){
+			/*for (int i = 0; i < bitDiff; i++){
 				extraZeros2.append("0");
-			}
+			}*/
 			extraZeros2.append(",");
 			extraZeros2end = "}";
 		}
@@ -223,14 +236,15 @@ std::string V_Component::buildVerilogString(){
 		compOper = 3;
 	}
 	else{
-		cout << "Error Invalid Operator";
+		std::cout << "Error! Invalid Operator: " << operation << std::endl;
+		exit(1);
 	}
 
 
 	if (component == "COMP"){
 		switch (compOper){
 		case 1: 
-			debugs = ss1.str();
+		
 			ss1 << component << " #(" << maxBitLength << ") " << component << "_" << componentNumber 
 				<< "(" << extraZeros1 << in1->getName() << extraZeros1end << "," + extraZeros2 
 				<< in2->getName() << extraZeros2end << "," << output->getName() << ",,)";
@@ -248,9 +262,11 @@ std::string V_Component::buildVerilogString(){
 			//tempString = component + " #(" + to_string(maxBitLength) + ") " + component + "_" + to_string(componentNumber) + "(" + extraZeros1 + in1->getName() + extraZeros1end + "," + extraZeros2 + in2->getName() + extraZeros2end + ",," + output->getName() + ",)";
 			break;
 		case 3: 
-			ss1 << component << " #(" + maxBitLength << ") " << component 
-				<< "_" << componentNumber << "(" << extraZeros1 
-				<< in1->getName() << extraZeros1end << "," << extraZeros2 
+			
+			ss1.str("");
+			ss1 << component << " #(" << maxBitLength << ") " << component
+				<< "_" << componentNumber << "(" << extraZeros1
+				<< in1->getName() << extraZeros1end << "," << extraZeros2
 				<< in2->getName() << extraZeros2end << ",,," << output->getName() << ")";
 			tempString = ss1.str();
 
