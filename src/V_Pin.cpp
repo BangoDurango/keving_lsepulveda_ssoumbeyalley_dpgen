@@ -3,6 +3,7 @@
 
 V_Pin::V_Pin(std::string sName, std::string sType, std::string sBitWidthString) {
 	name = sName;
+	string bitSubStr;
 	//std::cout<< "in pin constructor" << std::endl;
 
 	if (sType == INPUT) type = INPUT;
@@ -13,13 +14,18 @@ V_Pin::V_Pin(std::string sName, std::string sType, std::string sBitWidthString) 
 	std::cout << "invalid pin type" << std::endl;
 	}
 
-
-	string bitSubStr = sBitWidthString.substr(3, sBitWidthString.size());
-		
-	std::istringstream iss(bitSubStr) ;
-
-	if (!(iss >> bitWidth)) std::cout << "Invalid bit string" << std::endl;
-
+	if (sBitWidthString.substr(0, 4) != "UInt") {
+		 bitSubStr = sBitWidthString.substr(3, sBitWidthString.size());
+		std::istringstream iss(bitSubStr);
+		sgn = false;
+		if (!(iss >> bitWidth)) std::cout << "Invalid bit string" << std::endl;
+	}
+	else {
+		bitSubStr = sBitWidthString.substr(4, sBitWidthString.size());
+		sgn = true;
+		std::istringstream iss(bitSubStr);
+		if (!(iss >> bitWidth)) std::cout << "Invalid bit string" << std::endl;
+	}
 }
 V_Pin::V_Pin() {
 	//default constructor
@@ -40,6 +46,7 @@ bool V_Pin::CheckType(std::string sType) {
 
 std::string V_Pin::getName(void) { return name; }
 std::string V_Pin::getType(void) { return type; }
+bool V_Pin::getSigned(void) { return sgn; }
 unsigned int V_Pin::getBitWidth(void) { return bitWidth;}
 
 void V_Pin::printPin() {

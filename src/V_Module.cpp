@@ -194,7 +194,7 @@ void V_Module::generateComponents() {
 
 		if (size == 7){
 			std::string input3Pin;
-			int muxOut = 0;
+			//int muxOut = 0;
 
 			outputPin = tok.at(0);
 			//checks to see if pin name is stored
@@ -289,7 +289,8 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 	std::string tp = "";
 	std::string nm = "";
 	std::string argStr;
-
+	bool sgn;
+	sgn = false;
 	//string debugs;
 
 	for (std::vector< V_Pin*>::iterator it = pins.begin(); it != pins.end(); ++it) {
@@ -314,9 +315,14 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 		bw = (*it)->getBitWidth();
 		tp = (*it)->getType();
 		nm = (*it)->getName();
-
-		//std::cout << tp << " [" << bw-1 << ":0] " << nm << ";" << std::endl;
-		outFile << tp << " [" << bw - 1 << ":0] " << nm << ";" << std::endl;
+		sgn = (*it)->getSigned();
+	//	std::cout << tp << "signed [" << bw-1 << ":0] " << nm << ";" << std::endl;
+		if (sgn == true) {
+			outFile << tp << " signed [" << bw - 1 << ":0] " << nm << ";" << std::endl;
+		}
+		else {
+			outFile << tp << " [" << bw - 1 << ":0] " << nm << ";" << std::endl;
+		}
 
 	}
 	outFile << "input Clk, Rst;" << std::endl;
