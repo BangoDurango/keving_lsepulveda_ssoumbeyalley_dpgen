@@ -35,6 +35,7 @@ public:
 
 	std::string getName(void);
 	std::string getType(void);
+	bool getSigned(void);
 	unsigned int getBitWidth(void);
 	void printPin();
 	static bool CheckType(std::string);
@@ -46,6 +47,6 @@ private:
 	std::string type;
 	unsigned int bitWidth;
 	std::string name;
-
+	bool sgn;
 };
 #endif //V_PIN_H
