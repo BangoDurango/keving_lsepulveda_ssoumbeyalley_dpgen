@@ -36,7 +36,7 @@ public:
 
 	void generateVerilogFile(char* outFileStr);
 	//V_Pin* getPinByName(std::string sName);
-
+	string debugName;
 private:
 	std::vector<V_Pin*> pins;
 	std::vector<V_Component*> comps;

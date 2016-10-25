@@ -5,3 +5,5 @@
 #define REGISTER "register"
 #define REG "reg"
 #define INVALID "invalid"
+#define SIGNED true
+#define UNSIGNED false

@@ -97,3 +97,26 @@ std::string Parser::getModuleName(std::string filePath) {
 	//std::cout << filePath << std::endl;
 
 }
+std::string Parser::getFilePath(std::string filePath) {
+	std::string name;
+	std::string path;
+	//string path2;
+	std::size_t found = filePath.find_last_of("/\\");
+
+
+	//name = filePath.substr(found1 + 1).
+
+	//name = filePath.substr(found + 1);
+	//found = name.find_last_of(".");
+	//std::cout << name <<endl;
+	//name = name.substr(0, found);
+
+	//path2 = filePath.substr(found + 1).substr(0, found);
+	//std::cout << path2 << endl;
+	path = filePath.substr(0, found);
+	//std::cout << path << endl;
+	return path;
+	//std::cout << fileName << std::endl;
+	//std::cout << filePath << std::endl;
+
+}

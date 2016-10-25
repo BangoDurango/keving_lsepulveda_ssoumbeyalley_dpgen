@@ -12,19 +12,29 @@ V_Pin::V_Pin(std::string sName, std::string sType, std::string sBitWidthString) 
 	else if (sType == REGISTER) type = REG;
 	else { type = INVALID;
 	std::cout << "invalid pin type" << std::endl;
+	exit(1);
 	}
+	std::string sTest = sBitWidthString.substr(0, 4);
 
-	if (sBitWidthString.substr(0, 4) != "UInt") {
-		 bitSubStr = sBitWidthString.substr(3, sBitWidthString.size());
+	if (sBitWidthString.substr(0, 4) == "UInt") {
+		bitSubStr = sBitWidthString.substr(4, sBitWidthString.size());
+		sgn = UNSIGNED;
 		std::istringstream iss(bitSubStr);
-		sgn = false;
+		if (!(iss >> bitWidth)){
+			std::cout << "Invalid bit string" << std::endl;
+			exit(1);
+		}
+	}
+	else if (sBitWidthString.substr(0,3) == "Int"){
+
+		bitSubStr = sBitWidthString.substr(3, sBitWidthString.size());
+		std::istringstream iss(bitSubStr);
+		sgn = SIGNED;
 		if (!(iss >> bitWidth)) std::cout << "Invalid bit string" << std::endl;
 	}
 	else {
-		bitSubStr = sBitWidthString.substr(4, sBitWidthString.size());
-		sgn = true;
-		std::istringstream iss(bitSubStr);
-		if (!(iss >> bitWidth)) std::cout << "Invalid bit string" << std::endl;
+		std::cout << "Error! Invalid data type:" << sBitWidthString << std::endl;
+		exit(1);
 	}
 }
 V_Pin::V_Pin() {

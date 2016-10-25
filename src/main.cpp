@@ -23,6 +23,8 @@ int main (int argc, char* argv[]){
 
 	Parser::parseFile(argv[1], vmod.getFileStringVector());
 	//static parser class reads each line of the file in to vmod member rawfilestrings
+	string dName = Parser::getModuleName(argv[1]);
+//	vmod.debugName = dName;
 
 	vmod.generatePins();
 	

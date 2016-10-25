@@ -92,6 +92,7 @@ V_Pin* V_Module::getPinByName(std::string sName) {
 	for (std::vector<V_Pin*>::iterator it = pins.begin(); it != pins.end(); ++it) {
 		if ((*it)->getName() == sName) return *it;
 	}
+
 	return NULL;
 }
 
@@ -124,12 +125,12 @@ void V_Module::generateComponents() {
 			pin1 = getPinByName(outputPin);
 			//Error is thrown if pin cannot be found
 			if (pin1 == NULL){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Output or Wire: " << outputPin << std::endl;
 				exit(1); //error end program
 			}
 
 			if (tok.at(1) != "="){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Operator: " << tok.at(1) << std::endl;
 				exit(1); //error end program
 			}
 
@@ -137,7 +138,7 @@ void V_Module::generateComponents() {
 			//checks to see if pin name is stored
 			pin1 = getPinByName(input1Pin);
 			if (pin1 == NULL){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Input or Wire: " << std::endl;
 				exit(1); //error end program
 			}
 
@@ -153,12 +154,12 @@ void V_Module::generateComponents() {
 			pin1 = getPinByName(outputPin);
 			//Error is thrown if pin cannot be found
 			if (pin1 == NULL){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Output or Wire: " << outputPin << std::endl;
 				exit(1); //error end program
 			}
 
 			if (tok.at(1) != "="){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Operator: " << tok.at(1) << std::endl;
 				exit(1); //error end program
 			}
 
@@ -166,7 +167,7 @@ void V_Module::generateComponents() {
 			//checks to see if pin name is stored
 			pin1 = getPinByName(input1Pin);
 			if (pin1 == NULL){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Input or Wire: " << input1Pin << std::endl;
 				exit(1); //error end program
 			}
 
@@ -174,9 +175,9 @@ void V_Module::generateComponents() {
 
 			input2Pin = tok.at(4);
 			//checks to see if pin name is stored
-			pin1 = getPinByName(input1Pin);
+			pin1 = getPinByName(input2Pin);
 			if (pin1 == NULL){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Input or Wire: " << input2Pin << std::endl;
 				exit(1); //error end program
 			}
 
@@ -201,31 +202,31 @@ void V_Module::generateComponents() {
 			pin1 = getPinByName(outputPin);
 			//Error is thrown if pin cannot be found
 			if (pin1 == NULL){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Pin: " << outputPin << std::endl;
 				exit(1); //error end program
 			}
 
 			//Checking file format
 			if (tok.at(1) != "="){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Operator" << tok.at(1) << std::endl;
 				exit(1); //error end program
 			}
 
 			if (tok.at(3) != "?"){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Operator" << tok.at(3) <<  std::endl;
 				exit(1); //error end program
 			}
 
 			if (tok.at(5) != ":"){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Operator" << tok.at(5) << std::endl;
 				exit(1); //error end program
 			}
 
 			input3Pin = tok.at(2);
 			//checks to see if pin name is stored
-			pin1 = getPinByName(input1Pin);
+			pin1 = getPinByName(input3Pin);
 			if (pin1 == NULL){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Pin: " << input3Pin << std::endl;
 				exit(1); //error end program
 			}
 
@@ -233,15 +234,15 @@ void V_Module::generateComponents() {
 			//checks to see if pin name is stored
 			pin1 = getPinByName(input1Pin);
 			if (pin1 == NULL){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Pin: " << input1Pin << std::endl;
 				exit(1); //error end program
 			}
 
 			input2Pin = tok.at(6);
 			//checks to see if pin name is stored
-			pin1 = getPinByName(input1Pin);
+			pin1 = getPinByName(input2Pin);
 			if (pin1 == NULL){
-				std::cout << "File Read Error: generateComponent() function" << std::endl;
+				std::cout << "Error!... Invalid Pin: " << input2Pin << std::endl;
 				exit(1); //error end program
 			}
 
@@ -265,17 +266,25 @@ void V_Module::generateComponents() {
 
 void V_Module::generateVerilogFile(char* outFileStr) {
 
-	std::ofstream outFile(outFileStr, std::ofstream::out);
+
+	
 	std::vector<string> pinLines;
 	std::string sLine;
 	std::stringstream ss;
 	std::string moduleName;
 
 	moduleName = Parser::getModuleName(outFileStr);
+	//string p = Parser::getFilePath(outFileStr);
+	//string debugOut = p + "\\output\\" + debugName + ".v";
+
+	std::ofstream outFile(outFileStr, std::ofstream::out);
+	//std::ofstream outFile(debugOut.c_str(), std::ofstream::out);
 //	std::cout << moduleName << endl;
 	//outFile = std::ofstream(outFileStr, std::ofstream::out);
 	//std::cout << outFileStr << std::endl;
-
+	bool test = false;
+	test = outFile.is_open();
+	test = outFile.good();
 	if (outFile.is_open() && outFile.good()) {
 			//std::cout << "File Opened!" << std::endl;
 	}
@@ -317,7 +326,7 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 		nm = (*it)->getName();
 		sgn = (*it)->getSigned();
 	//	std::cout << tp << "signed [" << bw-1 << ":0] " << nm << ";" << std::endl;
-		if (sgn == true) {
+		if (sgn == SIGNED) {
 			outFile << tp << " signed [" << bw - 1 << ":0] " << nm << ";" << std::endl;
 		}
 		else {
