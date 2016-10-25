@@ -17,12 +17,12 @@ V_Pin::V_Pin(std::string sName, std::string sType, std::string sBitWidthString) 
 	if (sBitWidthString.substr(0, 4) != "UInt") {
 		 bitSubStr = sBitWidthString.substr(3, sBitWidthString.size());
 		std::istringstream iss(bitSubStr);
-		sgn = false;
+		sgn = true;
 		if (!(iss >> bitWidth)) std::cout << "Invalid bit string" << std::endl;
 	}
 	else {
 		bitSubStr = sBitWidthString.substr(4, sBitWidthString.size());
-		sgn = true;
+		sgn = false;
 		std::istringstream iss(bitSubStr);
 		if (!(iss >> bitWidth)) std::cout << "Invalid bit string" << std::endl;
 	}
