@@ -12,7 +12,8 @@ void Parser::parseFile(char* inFileStr, std::vector<string> *destVector) {
 	//	std::cout << "File Opened!" << std::endl;
 	}
 	else {
-		std::cout << "File(s) not opened." << std::endl;
+		std::cout << "Unable to open input file." << std::endl;
+		exit(1);
 		//return std::vector<std::string>();
 	}
 
@@ -21,6 +22,7 @@ void Parser::parseFile(char* inFileStr, std::vector<string> *destVector) {
 	//line = new std::string;
 	while (std::getline(inFile, line)) {
 	//	std::cout << line << std::endl;
+		//if(line.at()
 		if (line != "") {
 			destVector->push_back(line);
 		}
@@ -42,11 +44,34 @@ vector<std::string> Parser::splitByWhitespace(std::string str) {
 	stringstream ss(str); // Insert the string into a stream
 
 	vector<string> tokens; // Create vector to hold our words
-
+//	bool test;
 	while (ss >> buf) {
 		buf.erase(std::remove(buf.begin(), buf.end(), ','), buf.end());
-		tokens.push_back(buf);
+		//std::cout << buf << "***";
+		//if (buf == "b") { break; }
+		
+		//test = buf.find("\\");
+	//	std::cout << buf << "....." << test << endl;
+	
+		if (buf.find("//") == string::npos) {
+			tokens.push_back(buf);
+		//	
+		}
+		else { 
+		//	std::cout << "found!....." << buf << std::endl;
+			break; 
+		}
+			
 		//std::cout << buf << std::endl;
+	//}
+	/*for (std::vector<string>::iterator it = tokens.begin(); it != tokens.end(); ++it) {
+		std::cout << *it << endl;
+
+		if (it->find("\\")) { 
+			tokens.erase(it);
+			std::cout <<"erased!" << std::endl; 
+		}*/
+	//	std::cout << it->substr(0, 2) << endl;
 	}
 	return tokens;
 

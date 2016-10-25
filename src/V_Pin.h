@@ -8,11 +8,7 @@ File: V_Pin.h
 #ifndef V_PIN_H
 #define V_PIN_H
 
-#define INPUT "input"
-#define OUTPUT "output"
-#define WIRE "wire"
-#define REGISTER "register"
-#define INVALID "invalid"
+
 
 //if (sType == "input") flag = true;
 //else if (sType == "output") flag = true;
@@ -25,6 +21,7 @@ File: V_Pin.h
 #include<iostream>
 #include <sstream>
 #include "Parser.h"
+#include "main.h"
 
 using namespace std;
 
@@ -38,6 +35,7 @@ public:
 
 	std::string getName(void);
 	std::string getType(void);
+	bool getSigned(void);
 	unsigned int getBitWidth(void);
 	void printPin();
 	static bool CheckType(std::string);
@@ -49,6 +47,6 @@ private:
 	std::string type;
 	unsigned int bitWidth;
 	std::string name;
-
+	bool sgn;
 };
 #endif //V_PIN_H

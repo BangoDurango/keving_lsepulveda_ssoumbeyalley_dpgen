@@ -7,14 +7,20 @@
 //	pins.push_back(nPin);
 //
 //}
+
 V_Module::~V_Module() {
 	for (std::vector<V_Pin*>::iterator it = pins.begin(); it != pins.end(); ++it) {
 		delete *it;
-		it = pins.erase(it);
+		//it = pins.erase(it);
 	}
-
+	//std::vector<V_Component*> comps;
+	for (std::vector<V_Component*>::iterator it = comps.begin(); it != comps.end(); ++it) {
+		delete *it;
+		//it = comps.erase(it);
+	}
 	//Then need to loop again for components
 }
+
 void V_Module::printLines(void) {
 	for (vector<string>::iterator it = rawFileStrings.begin(); it != rawFileStrings.end(); ++it) {
 		std::cout << *it << std::endl;
@@ -28,7 +34,7 @@ std::vector<string>* V_Module::getFileStringVector() {
 
 void V_Module::generatePins() {
 
-
+	//bool erFlag = false;
 	std::vector<string> tok;
 	std::vector<string> sNames;
 	std::string sType;
@@ -37,14 +43,16 @@ void V_Module::generatePins() {
 	V_Pin* newPin;
 
 	if (rawFileStrings.size() == 0){
-		std::cout << "filestrings vector empty" << std::endl;
-		return;
+		std::cout << "Error parsing file (V_Module.cpp)" << std::endl;
+		exit(1);
+		//erFlag = true;
+		//return false;
 	}
 
 	for(std::vector<string>::iterator it = rawFileStrings.begin(); it != rawFileStrings.end(); ++it){
 		//For each string in the vector which the file was loaded in to
 		tok = Parser::splitByWhitespace(*it);//break the line up by whitespace
-
+		if (tok.size() == 0) continue;
 		sType = tok.at(0);//the first token should be input, output, wire etc
 		if (!V_Pin::CheckType(tok.at(0))) {
 			//if it's not, then it's a component (probably), so we're done generating pins...
@@ -52,22 +60,24 @@ void V_Module::generatePins() {
 			return;
 		}
 		sBitWidthString = tok.at(1); //The second item is always the bitwidth string
-
+		
 		for (std::vector<string>::iterator it = tok.begin() + 2; it != tok.end(); ++it) {
+		//	std::cout << *it;
 			sNames.push_back(*it);//Everything after the bitwidth string is a new pin, so we're making a vector of pin names
+			//sNames.insert(sNames.begin(), *it);
 		}
 		for (std::vector<string>::iterator it = sNames.begin(); it != sNames.end(); ++it) {
 			//loop through the vector of pin names, and make a new V_Pin object for it
 			newPin = new V_Pin(*it, sType, sBitWidthString);
-			if (newPin->getType() == "invalid") {//For safety
-				delete newPin;
+			if (newPin->getType() == INVALID) {//For safety
+				delete newPin;	
 				return;
 			}
 			
 			else {
 			//	newPin->printPin();//printPin(); for debugging
 				if(pins.size() == 0) pins.push_back(newPin);//If the vector is empty, just put this in there.
-				else pins.insert(pins.begin(), newPin);//They should load in order on their own
+				else pins.push_back(newPin);// pins.insert(pins.begin(), newPin);//They should load in order on their own
 			}
 			
 		}
@@ -184,7 +194,7 @@ void V_Module::generateComponents() {
 
 		if (size == 7){
 			std::string input3Pin;
-			int muxOut = 0;
+			//int muxOut = 0;
 
 			outputPin = tok.at(0);
 			//checks to see if pin name is stored
@@ -267,25 +277,36 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 	//std::cout << outFileStr << std::endl;
 
 	if (outFile.is_open() && outFile.good()) {
-		//	std::cout << "File Opened!" << std::endl;
+			//std::cout << "File Opened!" << std::endl;
 	}
 	else {
-		std::cout << "File(s) not opened." << std::endl;
+		std::cout << "Unable to open output file." << std::endl;
 		//return std::vector<std::string>();
+		exit(1);
 	}
 	//outFile.close();
 	int bw = -1;
 	std::string tp = "";
 	std::string nm = "";
 	std::string argStr;
+	bool sgn;
+	sgn = false;
+	//string debugs;
 
 	for (std::vector< V_Pin*>::iterator it = pins.begin(); it != pins.end(); ++it) {
+		tp = (*it)->getType();
 		nm = (*it)->getName();
-		ss << nm;
-		if (it + 1 != pins.end())ss << ", ";
-		
+
+		if (tp != WIRE && tp != REG) {
+			ss << nm << ", ";
+			//if (it + 1 != pins.end())ss << ", ";
+		}
 	}
+	ss << "Clk, Rst";
 	argStr = ss.str();
+	//argStr = argStr.substr(0, argStr.length() - 2); //get rid of extra comma
+	outFile << "`timescale 1ns / 1ps" << std::endl;
+
 	outFile << "module " << moduleName << "(" << argStr << ");" << std::endl << std::endl;
 
 	for (std::vector< V_Pin*>::iterator it = pins.begin(); it != pins.end(); ++it) {
@@ -294,16 +315,21 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 		bw = (*it)->getBitWidth();
 		tp = (*it)->getType();
 		nm = (*it)->getName();
-
-		//std::cout << tp << " [" << bw-1 << ":0] " << nm << ";" << std::endl;
-		outFile << tp << " [" << bw - 1 << ":0] " << nm << ";" << std::endl;
+		sgn = (*it)->getSigned();
+	//	std::cout << tp << "signed [" << bw-1 << ":0] " << nm << ";" << std::endl;
+		if (sgn == true) {
+			outFile << tp << " signed [" << bw - 1 << ":0] " << nm << ";" << std::endl;
+		}
+		else {
+			outFile << tp << " [" << bw - 1 << ":0] " << nm << ";" << std::endl;
+		}
 
 	}
-
+	outFile << "input Clk, Rst;" << std::endl;
 	outFile << std::endl;
 
 	for (std::vector<V_Component*>::iterator it = comps.begin(); it != comps.end(); ++it) {
-		outFile << (*it)->verilogString << std::endl;
+		outFile << (*it)->verilogString << ";" << std::endl;
 	}
 	//for (std::vector<string>::iterator it = pinLines.begin(); it != pinLines.end(); ++it) {
 	//	std::cout << *it;

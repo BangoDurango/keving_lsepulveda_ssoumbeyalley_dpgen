@@ -14,9 +14,11 @@ File: V_Module.h
 #include<iostream>
 #include <fstream>
 #include <sstream>
+#include<algorithm>
 #include "V_Pin.h"
 #include "Parser.h"
 #include "V_Component.h"
+#include "main.h"
 
 class V_Module {
 

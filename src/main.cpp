@@ -14,6 +14,7 @@ int main (int argc, char* argv[]){
 	
 	if (argc != 3) {
 		std::cout << "incorrect number of arguments." << std::endl;
+		exit(1);
 		//return 0;
 	}
 
