@@ -35,8 +35,7 @@ private:
 	V_Pin* in2;
 	V_Pin* control;
 	V_Pin* output;
-	bool sgn;
 
-
+	
 };
 #endif //V_COMPONENT_H
