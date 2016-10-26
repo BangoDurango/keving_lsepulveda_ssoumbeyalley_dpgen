@@ -52,6 +52,8 @@ bool V_Pin::CheckType(std::string sType) {
 	return flag;
 }
 
+
+
 std::string V_Pin::getName(void) { return name; }
 std::string V_Pin::getType(void) { return type; }
 bool V_Pin::getSigned(void) { return sgn; }
