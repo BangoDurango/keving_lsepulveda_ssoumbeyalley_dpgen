@@ -282,9 +282,9 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 //	std::cout << moduleName << endl;
 	//outFile = std::ofstream(outFileStr, std::ofstream::out);
 	//std::cout << outFileStr << std::endl;
-	bool test = false;
-	test = outFile.is_open();
-	test = outFile.good();
+	//bool test = false;
+	//test = outFile.is_open();
+	//test = outFile.good();
 	if (outFile.is_open() && outFile.good()) {
 			//std::cout << "File Opened!" << std::endl;
 	}
