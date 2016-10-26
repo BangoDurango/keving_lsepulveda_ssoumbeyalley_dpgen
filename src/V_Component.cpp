@@ -215,6 +215,7 @@ std::string V_Component::buildVerilogString() {
 				//extraZeros1end = "}";
 			}
 		}
+		//Github can eat me.
 		if (in2->getBitWidth() != maxBitLength) {
 			bitDiff = maxBitLength - in2->getBitWidth();
 			if (!sgn) {
