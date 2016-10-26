@@ -20,14 +20,6 @@ V_Pin::V_Pin(std::string sName, std::string sType, std::string sBitWidthString) 
 		bitSubStr = sBitWidthString.substr(4, sBitWidthString.size());
 		sgn = UNSIGNED;
 		std::istringstream iss(bitSubStr);
-<<<<<<< HEAD
-		sgn = true;
-		if (!(iss >> bitWidth)) std::cout << "Invalid bit string" << std::endl;
-	}
-	else {
-		bitSubStr = sBitWidthString.substr(4, sBitWidthString.size());
-		sgn = false;
-=======
 		if (!(iss >> bitWidth)){
 			std::cout << "Invalid bit string" << std::endl;
 			exit(1);
@@ -36,7 +28,6 @@ V_Pin::V_Pin(std::string sName, std::string sType, std::string sBitWidthString) 
 	else if (sBitWidthString.substr(0,3) == "Int"){
 
 		bitSubStr = sBitWidthString.substr(3, sBitWidthString.size());
->>>>>>> refs/remotes/origin/ECE3friendly
 		std::istringstream iss(bitSubStr);
 		sgn = SIGNED;
 		if (!(iss >> bitWidth)) std::cout << "Invalid bit string" << std::endl;
@@ -61,7 +52,7 @@ bool V_Pin::CheckType(std::string sType) {
 	return flag;
 }
 
-//so will github quit being a pain in the ass now?
+
 
 std::string V_Pin::getName(void) { return name; }
 std::string V_Pin::getType(void) { return type; }
