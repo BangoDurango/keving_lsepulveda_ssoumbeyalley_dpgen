@@ -26,7 +26,7 @@ V_Component::V_Component(V_Pin* In1, V_Pin* Output, int ComponentNumber){
 
 
 
-	sgn = (in1->getSigned()|| output->getSigned());
+	sgn = (in1->getSigned() && output->getSigned());
 
 
 	if (in1->getBitWidth()  == output->getBitWidth()){
