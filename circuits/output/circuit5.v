@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module circuit1(a, b, c, z, x, Clk, Rst);
+module circuit5(a, b, c, z, x, Clk, Rst);
 
 input signed [63:0] a;
 input signed [63:0] b;
@@ -19,6 +19,7 @@ reg signed [63:0] greg;
 reg signed [63:0] hreg;
 input Clk, Rst;
 
+
 SADD #(64) SADD_1(a,b,d);
 SADD #(64) SADD_2(a,c,e);
 SSUB #(64) SSUB_3(a,b,f);
@@ -32,5 +33,6 @@ SSHL #(64) SSHL_10(hreg,dLTe,xrin);
 SSHR #(64) SSHR_11(greg,dEQe,zrin);
 SREG #(32) REG_12(xrin[31:0],Clk, Rst, x);
 SREG #(32) REG_13(zrin[31:0],Clk, Rst, z);
+
 
 endmodule

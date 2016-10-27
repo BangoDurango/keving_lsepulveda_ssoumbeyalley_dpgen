@@ -5,7 +5,7 @@ V_Pin::V_Pin(std::string sName, std::string sType, std::string sBitWidthString) 
 	name = sName;
 	string bitSubStr;
 	//std::cout<< "in pin constructor" << std::endl;
-
+	sgn = UNSIGNED;
 	if (sType == INPUT) type = INPUT;
 	else if (sType == OUTPUT) type = OUTPUT;
 	else if (sType == WIRE) type = WIRE;
@@ -39,6 +39,7 @@ V_Pin::V_Pin(std::string sName, std::string sType, std::string sBitWidthString) 
 }
 V_Pin::V_Pin() {
 	//default constructor
+	sgn = UNSIGNED;
 	type = "invalid";
 }
 bool V_Pin::CheckType(std::string sType) {
@@ -54,7 +55,7 @@ bool V_Pin::CheckType(std::string sType) {
 
 std::string V_Pin::getName(void) { return name; }
 std::string V_Pin::getType(void) { return type; }
-bool V_Pin::getSigned(void) { return sgn; }
+bool V_Pin::getSigned() { return sgn; }
 unsigned int V_Pin::getBitWidth(void) { return bitWidth;}
 
 void V_Pin::printPin() {

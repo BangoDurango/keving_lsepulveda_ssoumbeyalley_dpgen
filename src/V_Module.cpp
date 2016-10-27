@@ -311,7 +311,7 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 			//if (it + 1 != pins.end())ss << ", ";
 		}
 	}
-	ss << "Clk, Rst";
+	ss << "clk, rst";
 	argStr = ss.str();
 	//argStr = argStr.substr(0, argStr.length() - 2); //get rid of extra comma
 	outFile << "`timescale 1ns / 1ps" << std::endl;
@@ -326,15 +326,19 @@ void V_Module::generateVerilogFile(char* outFileStr) {
 		nm = (*it)->getName();
 		sgn = (*it)->getSigned();
 	//	std::cout << tp << "signed [" << bw-1 << ":0] " << nm << ";" << std::endl;
-		if (sgn == SIGNED) {
-			outFile << tp << " signed [" << bw - 1 << ":0] " << nm << ";" << std::endl;
+		if (bw == 1) {
+			outFile << tp << " " << nm << ";" << std::endl;
 		}
 		else {
-			outFile << tp << " [" << bw - 1 << ":0] " << nm << ";" << std::endl;
+			if (sgn == SIGNED) {
+				outFile << tp << " signed [" << bw - 1 << ":0] " << nm << ";" << std::endl;
+			}
+			else {
+				outFile << tp << " [" << bw - 1 << ":0] " << nm << ";" << std::endl;
+			}
 		}
-
 	}
-	outFile << "input Clk, Rst;" << std::endl;
+	outFile << "input clk, rst;" << std::endl;
 	outFile << std::endl;
 
 	for (std::vector<V_Component*>::iterator it = comps.begin(); it != comps.end(); ++it) {
