@@ -24,8 +24,9 @@ V_Component::V_Component(V_Pin* In1, V_Pin* Output, int ComponentNumber){
 	std::stringstream ss1;
 	std::stringstream ss2;
 
-	//bool sgn;
-	sgn = (in1->getSigned() || in2->getSigned() || output->getSigned());
+
+
+	sgn = (in1->getSigned()|| output->getSigned());
 
 
 	if (in1->getBitWidth()  == output->getBitWidth()){
@@ -178,7 +179,10 @@ std::string V_Component::buildVerilogString() {
 
 	strPin1 = in1->getName();
 	strPin2 = in2->getName();
-
+	bool a, b, c, d;
+	a = in1->getSigned();
+	b = in2->getSigned();
+	c = output->getSigned();
 	sgn = (in1->getSigned() && in2->getSigned() && output->getSigned());
 
 
@@ -268,14 +272,16 @@ std::string V_Component::buildVerilogString() {
 		compOper = 2;
 	}
 	else if (operation == ">>") {
-		//if (!sgn) { component = "SHR"; }
-		//else { component = "SSHR"; }
-		component = "SHR";
+		if (!sgn) { component = "SHR"; }
+		else { component = "SSHR"; }
+		///component = "SHR";
+		strPin2 = in2->getName();
 	}
 	else if (operation == "<<") {
-		//if (!sgn) { component = "SHL"; }
-		//else { component = "SSHL"; }
-		component = "SHL";
+		if (!sgn) { component = "SHL"; }
+		else { component = "SSHL"; }
+		strPin2 = in2->getName();
+		///component = "SHL";
 	}
 	else if (operation == "==") {
 		if (!sgn) { component = "COMP"; }
@@ -287,26 +293,6 @@ std::string V_Component::buildVerilogString() {
 		exit(1);
 	}
 
-
-	//newPin1Name = ssIn1.str();
-	//newPin2Name = ssIn2.str();
-
-	//if (sgn){
-	//	if (in1->getSigned() == UNSIGNED){
-	//		newPin1Name = "$signed(" + newPin1Name + ")";
-	//	}
-	//	if (in2->getSigned() == UNSIGNED){
-	//		newPin2Name = "$signed(" + newPin2Name + ")";
-	//	}
-
-	//}
-	//else{
-	//	ssIn1 << extraZeros1 << in1->getName() << extraZeros1end;
-	//	ssIn2 << extraZeros2 << in2->getName() << extraZeros2end;
-
-	//	newPin1Name = ssIn1.str();
-	//	newPin2Name = ssIn2.str();
-	//}
 
 	if (component == "COMP" || component == "SCOMP") {
 
