@@ -14,6 +14,7 @@ File: V_Module.h
 #include<iostream>
 #include <fstream>
 #include <sstream>
+#include<algorithm>
 #include "V_Pin.h"
 #include "Parser.h"
 #include "V_Component.h"
@@ -35,7 +36,7 @@ public:
 
 	void generateVerilogFile(char* outFileStr);
 	//V_Pin* getPinByName(std::string sName);
-
+	string debugName;
 private:
 	std::vector<V_Pin*> pins;
 	std::vector<V_Component*> comps;
