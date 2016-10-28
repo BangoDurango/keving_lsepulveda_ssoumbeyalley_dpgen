@@ -30,9 +30,9 @@ SADD #(32) SADD_4({{16{g[15]}},g},{{16{h[15]}},h},l03);
 SADD #(32) SADD_5(l00,l01,l10);
 SADD #(32) SADD_6(l02,l03,l11);
 SADD #(32) SADD_7(l10,l11,l2);
-SSHR #(32) SSHR_8(l2,sa,l2div2);
-SSHR #(32) SSHR_9(l2div2,sa,l2div4);
-SSHR #(32) SSHR_10(l2div4,sa,l2div8);
+SSHR #(32) SSHR_8(l2,{{24{sa[7]}},sa},l2div2);
+SSHR #(32) SSHR_9(l2div2,{{24{sa[7]}},sa},l2div4);
+SSHR #(32) SSHR_10(l2div4,{{24{sa[7]}},sa},l2div8);
 SREG #(16) REG_11(l2div8[15:0],clk, rst, avg);
 
 endmodule
