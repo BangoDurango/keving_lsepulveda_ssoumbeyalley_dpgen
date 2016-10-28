@@ -27,7 +27,7 @@ $RECYCLE.BIN/
 .DS_Store
 .AppleDouble
 .LSOverride
-
+/build
 # Thumbnails
 ._*
 
@@ -47,4 +47,4 @@ Temporary Items
 .apdisk
 
 build/
-circuits/output/vivado/
+*.v

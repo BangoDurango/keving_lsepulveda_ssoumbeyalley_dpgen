@@ -11,9 +11,28 @@ using namespace std;
 
 int main (int argc, char* argv[]){
 	//std::cout << "Test" << endl;	
-	
+	/*string ins;
+	string inp;
+	string in;
+	char* inc;
+	string outp;
+	string outs;
+	string out;
+	char* outc;
+	inp = "E:\\Kevin\\Documents\\GitHub\\keving_lsepulveda_ssoumbeyalley_dpgen\\circuits\\";
+		ins = "mixedcircuit3.txt";
+		in = inp + ins;
+		inc = new char [in.length() - 1];
+		strcpy(inc, in.c_str());
+
+	outp = inp + "\\output\\";
+		outs = "mixedcircuit3.v";
+		out = outp + outs;
+		outc = new char[out.length() - 1];
+		strcpy(outc, out.c_str());*/
+
 	if (argc != 3) {
-		std::cout << "incorrect number of arguments." << std::endl;
+		std::cout << "Usage: dpgen netlistFile verilogFile" << std::endl;
 		exit(1);
 		//return 0;
 	}

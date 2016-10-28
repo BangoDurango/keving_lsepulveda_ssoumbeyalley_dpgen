@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module circuit4(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, final, Clk, Rst);
+module circuit4(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, final, clk, rst);
 
 input signed [7:0] a;
 input signed [7:0] b;
@@ -32,7 +32,7 @@ wire signed [31:0] t11;
 wire signed [31:0] t12;
 wire signed [31:0] t13;
 wire signed [31:0] t14;
-input Clk, Rst;
+input clk, rst;
 
 SADD #(32) SADD_1({{24{a[7]}},a},{{24{b[7]}},b},t1);
 SADD #(32) SADD_2(t1,{{24{c[7]}},c},t2);
@@ -48,6 +48,6 @@ SADD #(32) SADD_11(t10,{{24{m[7]}},m},t11);
 SADD #(32) SADD_12(t11,{{24{n[7]}},n},t12);
 SADD #(32) SADD_13(t12,{{24{o[7]}},o},t13);
 SADD #(32) SADD_14(t13,{{24{p[7]}},p},t14);
-SREG #(32) REG_15(t14,Clk, Rst, final);
+SREG #(32) REG_15(t14,clk, rst, final);
 
 endmodule

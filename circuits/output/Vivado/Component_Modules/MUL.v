@@ -1,10 +1,30 @@
-    module MUL #(parameter DATAWIDTH = 2)( a, b, pro);
-       input [DATAWIDTH-1:0] a, b;
-        output reg [DATAWIDTH-1:0] pro;
-        
-        always @(a, b) begin
-       
-                pro <= a * b;
-                
-        end      
-    endmodule
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    09:35:20 09/06/2016 
+// Design Name: 
+// Module Name:    MUL 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module MUL(a,b,prod);
+	parameter DATAWIDTH = 2;
+	input [DATAWIDTH-1:0] a, b;
+	output reg [DATAWIDTH-1:0] prod;
+	
+	always@(a,b)begin
+		prod <= a * b;
+	end
+	
+endmodule

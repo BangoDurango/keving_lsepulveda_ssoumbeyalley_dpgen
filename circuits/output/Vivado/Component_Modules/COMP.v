@@ -3,38 +3,36 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 09/06/2016 10:08:31 AM
+// Create Date:    09:36:19 09/06/2016 
 // Design Name: 
-// Module Name: COMP
+// Module Name:    COMP 
 // Project Name: 
 // Target Devices: 
-// Tool Versions: 
+// Tool versions: 
 // Description: 
-// 
+//
 // Dependencies: 
-// 
-// Revision:
+//
+// Revision: 
 // Revision 0.01 - File Created
-// Additional Comments:
-// 
+// Additional Comments: 
+//
 //////////////////////////////////////////////////////////////////////////////////
+module COMP(a, b, gt, lt, eq);
+	parameter DATAWIDTH = 2;
+	input [DATAWIDTH-1:0] a, b;
+	output reg gt, lt, eq;
+	
+	always@(a,b)begin
+		gt <= 0; lt <= 0; eq <= 0;
+		
+		if (a > b)
+			gt <= 1;
+		else if (a < b)
+			lt <= 1;
+		else if (a == b)
+			eq <= 1;
 
-
-module COMP #(parameter DATAWIDTH = 64)(a, b, gt, lt, eq);
-
-    input [DATAWIDTH -1:0]a, b;
-    output reg  gt, lt, eq;
-
-always@(a,b) begin
-    if (a<b) begin
-        gt = 0; lt = 1; eq = 0;
-        end
-    else if (a == b) begin
-        gt = 0; lt = 0; eq = 1;
-        end
-    else begin
-        gt = 1; lt = 0; eq = 0;
-        end
-end
-
+	end
+	
 endmodule

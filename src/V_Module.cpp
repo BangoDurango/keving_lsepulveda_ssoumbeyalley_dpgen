@@ -55,9 +55,23 @@ void V_Module::generatePins() {
 		if (tok.size() == 0) continue;
 		sType = tok.at(0);//the first token should be input, output, wire etc
 		if (!V_Pin::CheckType(tok.at(0))) {
-			//if it's not, then it's a component (probably), so we're done generating pins...
-			MOF = it;//set the iterator to this point so generateComponents can start here. 
-			return;
+			if (tok.at(0) == "line") {
+				tok.erase(tok.begin());
+				if (tok.at(0) == "=") {
+					tok.erase(tok.begin());
+				}
+				sType = tok.at(0);
+				if (!V_Pin::CheckType(tok.at(0))) {
+					//if it's not, then it's a component (probably), so we're done generating pins...
+					MOF = it;//set the iterator to this point so generateComponents can start here. 
+					return;
+				}
+			}
+			else {
+				MOF = it;//set the iterator to this point so generateComponents can start here. 
+				return;
+			}
+		
 		}
 		sBitWidthString = tok.at(1); //The second item is always the bitwidth string
 		
@@ -202,7 +216,7 @@ void V_Module::generateComponents() {
 			pin1 = getPinByName(outputPin);
 			//Error is thrown if pin cannot be found
 			if (pin1 == NULL){
-				std::cout << "Error!... Invalid Pin: " << outputPin << std::endl;
+				std::cout << "Error!... Invalid Output or Wire: " << outputPin << std::endl;
 				exit(1); //error end program
 			}
 
@@ -226,7 +240,7 @@ void V_Module::generateComponents() {
 			//checks to see if pin name is stored
 			pin1 = getPinByName(input3Pin);
 			if (pin1 == NULL){
-				std::cout << "Error!... Invalid Pin: " << input3Pin << std::endl;
+				std::cout << "Error!... Invalid Input or Wire: " << input3Pin << std::endl;
 				exit(1); //error end program
 			}
 
@@ -234,7 +248,7 @@ void V_Module::generateComponents() {
 			//checks to see if pin name is stored
 			pin1 = getPinByName(input1Pin);
 			if (pin1 == NULL){
-				std::cout << "Error!... Invalid Pin: " << input1Pin << std::endl;
+				std::cout << "Error!... Invalid Input or Wire: " << input1Pin << std::endl;
 				exit(1); //error end program
 			}
 
@@ -242,7 +256,7 @@ void V_Module::generateComponents() {
 			//checks to see if pin name is stored
 			pin1 = getPinByName(input2Pin);
 			if (pin1 == NULL){
-				std::cout << "Error!... Invalid Pin: " << input2Pin << std::endl;
+				std::cout << "Error!... Invalid Input or Wire: " << input2Pin << std::endl;
 				exit(1); //error end program
 			}
 

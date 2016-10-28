@@ -15,8 +15,8 @@ wire dLTe;
 wire dEQe;
 wire signed [63:0] xrin;
 wire signed [63:0] zrin;
-reg signed [63:0] greg;
-reg signed [63:0] hreg;
+wire signed [63:0] greg;
+wire signed [63:0] hreg;
 input clk, rst;
 
 SADD #(64) SADD_1(a,b,d);
@@ -26,11 +26,11 @@ SCOMP #(64) SCOMP_4(d,e,,,dEQe);
 SCOMP #(64) SCOMP_5(d,e,,dLTe,);
 MUX2x1 #(64) MUX2x1_6(d,e,dLTe,g);
 MUX2x1 #(64) MUX2x1_7(g,f,dEQe,h);
-SREG #(64) REG_8(g,Clk, Rst, greg);
-SREG #(64) REG_9(h,Clk, Rst, hreg);
-SSHL #(64) SSHL_10(hreg,dLTe,xrin);
-SSHR #(64) SSHR_11(greg,dEQe,zrin);
-SREG #(32) REG_12(xrin[31:0],Clk, Rst, x);
-SREG #(32) REG_13(zrin[31:0],Clk, Rst, z);
+SREG #(64) REG_8(g,clk, rst, greg);
+SREG #(64) REG_9(h,clk, rst, hreg);
+SSHL #(64) SSHL_10(hreg,{63'b0,dLTe},xrin);
+SSHR #(64) SSHR_11(greg,{63'b0,dEQe},zrin);
+SREG #(32) REG_12(xrin[31:0],clk, rst, x);
+SREG #(32) REG_13(zrin[31:0],clk, rst, z);
 
 endmodule

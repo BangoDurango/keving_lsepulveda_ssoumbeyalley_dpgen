@@ -3,33 +3,34 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 09/13/2016 10:15:44 PM
+// Create Date:    19:49:53 09/05/2016 
 // Design Name: 
-// Module Name: REG
+// Module Name:    register 
 // Project Name: 
 // Target Devices: 
-// Tool Versions: 
+// Tool versions: 
 // Description: 
-// 
+//
 // Dependencies: 
-// 
-// Revision:
+//
+// Revision: 
 // Revision 0.01 - File Created
-// Additional Comments:
-// 
+// Additional Comments: 
+//
 //////////////////////////////////////////////////////////////////////////////////
+module REG(d, Clk, Rst, q);
+	parameter DATAWIDTH = 2;
+	input [DATAWIDTH-1:0] d;
+	input Clk, Rst;
+	output reg [DATAWIDTH-1:0] q;
+	
+	always@(posedge Clk)begin
+		if (Rst == 1)
+			q <= 0;
+		else
+			q <= d;
+	end
+	
 
-  module REG #(parameter DATAWIDTH = 2)(d, q, Clk, Rst);
-        input [DATAWIDTH-1:0] d;
-        output reg [DATAWIDTH-1:0] q;
-        input Clk, Rst;
-        
-          always @(posedge Clk) begin
-              if(Rst == 1) //synchronous reset
-                  q <= 0;
-              else
-                  q <= d;
-          end
 
-        
-    endmodule
+endmodule

@@ -3,33 +3,29 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 09/06/2016 10:43:04 AM
+// Create Date:    09:52:45 09/06/2016 
 // Design Name: 
-// Module Name: SHR
+// Module Name:    SHR 
 // Project Name: 
 // Target Devices: 
-// Tool Versions: 
+// Tool versions: 
 // Description: 
-// 
+//
 // Dependencies: 
-// 
-// Revision:
+//
+// Revision: 
 // Revision 0.01 - File Created
-// Additional Comments:
-// 
+// Additional Comments: 
+//
 //////////////////////////////////////////////////////////////////////////////////
+module SHR(a, sh_amt, d);
+	parameter DATAWIDTH = 2;
+	input [DATAWIDTH-1:0] a;
+	input [DATAWIDTH-1:0] sh_amt;
+	output reg [DATAWIDTH-1:0] d;
+	
+	always@(*) begin
+		d <= a >> sh_amt;
+	end
 
-
-module SHR #(parameter DATAWIDTH = 16)(a, sh_amt, d);
-    
-     input [DATAWIDTH -1:0]a;
-     input [DATAWIDTH -1:0]sh_amt;
-     output reg [DATAWIDTH -1:0]d;
-     
-     always@(a,sh_amt) begin
-        
-        d <= a >> sh_amt;
-        
-     end //always@(a,sh_amt)
-     
 endmodule

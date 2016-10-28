@@ -3,30 +3,28 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 09/13/2016 10:17:03 PM
+// Create Date:    09:25:36 09/06/2016 
 // Design Name: 
-// Module Name: ADD
+// Module Name:    adder 
 // Project Name: 
 // Target Devices: 
-// Tool Versions: 
+// Tool versions: 
 // Description: 
-// 
+//
 // Dependencies: 
-// 
-// Revision:
+//
+// Revision: 
 // Revision 0.01 - File Created
-// Additional Comments:
-// 
+// Additional Comments: 
+//
 //////////////////////////////////////////////////////////////////////////////////
-
-
-   module ADD #(parameter DATAWIDTH = 2)( a, b, sum);
-        input [DATAWIDTH-1:0] a, b;
-        output reg [DATAWIDTH-1:0] sum;
-
-    
-        always @(a, b) begin     
-              sum <= a + b;
-        end
-        
-    endmodule
+module ADD(a,b,sum);
+	parameter DATAWIDTH = 2;
+	input [DATAWIDTH-1:0] a, b;
+	output reg [DATAWIDTH-1:0] sum;
+	
+	always@(a,b)begin
+		sum <= a + b;
+	end
+	
+endmodule
