@@ -36,7 +36,7 @@ private:
 	V_Pin* control;
 	V_Pin* output;
 	bool sgn;
-
+	bool mixed;
 
 };
 #endif //V_COMPONENT_H

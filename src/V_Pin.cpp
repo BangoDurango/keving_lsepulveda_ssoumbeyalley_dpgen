@@ -29,8 +29,9 @@ V_Pin::V_Pin(std::string sName, std::string sType, std::string sBitWidthString) 
 
 		bitSubStr = sBitWidthString.substr(3, sBitWidthString.size());
 		std::istringstream iss(bitSubStr);
-		sgn = SIGNED;
+		
 		if (!(iss >> bitWidth)) std::cout << "Invalid bit string" << std::endl;
+		if (bitWidth > 1) sgn = SIGNED;
 	}
 	else {
 		std::cout << "Error! Invalid data type:" << sBitWidthString << std::endl;
