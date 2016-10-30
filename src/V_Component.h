@@ -29,7 +29,7 @@ private:
 
 	int componentNumber;
 	std::string name;
-	std::string type;//We can create a different class for each type of componenet if we need to? I don't know if that's necessary, your call.
+	std::string type;
 	std::string operation;
 	V_Pin* in1;
 	V_Pin* in2;

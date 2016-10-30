@@ -1,30 +1,7 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    09:34:28 09/06/2016 
-// Design Name: 
-// Module Name:    SUB 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
-module SUB(a,b,diff);
-	parameter DATAWIDTH = 2;
-	input [DATAWIDTH-1:0] a, b;
-	output reg [DATAWIDTH-1:0] diff;
-	
-	always@(a,b)begin
-		diff <= a - b;
-	end
-	
+module SUB #(parameter DATAWIDTH = 8) (a, b, diff);
+    input [DATAWIDTH - 1 : 0] a, b;
+    output [DATAWIDTH - 1 : 0] diff;
+    
+        assign diff = a - b;
 endmodule
