@@ -75,7 +75,7 @@ V_Component::V_Component(V_Pin* In1, V_Pin* Output, int ComponentNumber){
 		
 	}
 
-	if (sgn) verilogString = "S" + verilogString;
+	//if (sgn) verilogString = "S" + verilogString;
 
 }
 
@@ -268,18 +268,19 @@ std::string V_Component::buildVerilogString() {
 	
 	//if 
 	if (operation == "+") {
-		if (!sgn) {component = "ADD";}
-		else {component = "SADD";}
+		//if (!sgn) {component = "ADD";}
+		//else {component = "SADD";}
+		component = "ADD";
 	}
 	else if (operation == "-") {
-		//component = "SUB";
-		if (!sgn) { component = "SUB"; }
-		else { component = "SSUB"; }
+		component = "SUB";
+		//if (!sgn) { component = "SUB"; }
+		//else { component = "SSUB"; }
 	}
 	else if (operation == "*") {
-		//component = "MUL";
-		if (!sgn) { component = "MUL"; }
-		else { component = "SMUL"; }
+		component = "MUL";
+		//if (!sgn) { component = "MUL"; }
+		//else { component = "SMUL"; }
 	}
 	else if (operation == ">") {
 		//component = "COMP";
@@ -299,10 +300,10 @@ std::string V_Component::buildVerilogString() {
 		//strPin2 = in2->getName();
 	}
 	else if (operation == "<<") {
-		if (!sgn) { component = "SHL"; }
-		else { component = "SSHL"; }
+	//	if (!sgn) { component = "SHL"; }
+		//else { component = "SSHL"; }
 		//strPin2 = in2->getName();
-		///component = "SHL";
+		component = "SHL";
 	}
 	else if (operation == "==") {
 		if (!sgn) { component = "COMP"; }
@@ -312,6 +313,10 @@ std::string V_Component::buildVerilogString() {
 	else if (operation == "/") {
 		if (!sgn) { component = "DIV"; }
 		else { component = "SDIV"; }
+	}
+	else if (operation == "%") {
+		if (!sgn) { component = "MOD"; }
+		else { component = "SMOD"; }
 	}
 	else {
 		std::cout << "Error! Invalid Operator: " << operation << std::endl;
